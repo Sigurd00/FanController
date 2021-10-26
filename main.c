@@ -11,7 +11,7 @@ int main(int argc, char *argv[]) {
         printf("There was an error executing the command");
     while (fgets(path, sizeof(path), fp) != NULL)
         printf("%s", path);
-    pclose(fp)
+    pclose(fp);
 
     return EXIT_SUCCESS;
 }
