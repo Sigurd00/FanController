@@ -3,26 +3,29 @@
 #include <string.h>
 #include <ctype.h>
 #ifdef linux
+#define USING_PI 1
 #include <wiringPi.h>
 #include <unistd.h>
 #define FAN_PIN 7 //https://pinout.xyz/pinout/pin7_gpio4#
 #define PIN_ON 1
 #define PIN_OFF 0
 #else
+#define USING_PI 0
 #include <windows.h>
 #endif
 
 double get_system_temp();
 double extract_temp_from_text(char* tempText);
 double get_fake_temp();
+void run_fan_Controller();
 
 int main(int argc, char *argv[]) {
-    #ifdef linux
-    pinMode(FAN_PIN, OUTPUT);
-    run_fan_Controller();
-    #else
+    if(USING_PI){
+        pinMode(FAN_PIN, OUTPUT);
+        run_fan_Controller();
+    } else {
     printf("FAKE TEMPERATURE = %lf", get_fake_temp());
-    #endif
+    }
     return EXIT_SUCCESS;
 }
 
