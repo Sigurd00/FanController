@@ -2,11 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-
-enum state {
-    idle = 0,
-    working = 1
-}
+#ifdef linux
+#include <wiringPi.h>
+#define FAN_PIN 7 //https://pinout.xyz/pinout/pin7_gpio4#
+#define PIN_ON 1
+#define PIN_OFF 0
+#endif
 
 double get_system_temp();
 double extract_temp_from_text(char* tempText);
@@ -15,35 +16,30 @@ void run_fan_controller();
 
 int main(int argc, char *argv[]) {
     #ifdef linux
+    pinMode(FAN_PIN, OUTPUT);
     run_fan_Controller();
     #endif
     #ifdef _WIN32
     printf("FAKE TEMPERATURE = %lf", get_fake_temp());
     #endif
     return EXIT_SUCCESS;
-
 }
 
 void run_fan_Controller(){
     int _running = 1;
     double temperature = get_system_temp();
-    enum state state;
+    printf("%lf", &temperature);
     while (_running) {
         if (temperature >= 60) {
-            state = working;
+            digitalWrite(FAN_PIN, PIN_ON);
+            printf("FAN ON");
         }
         else if (temperature <= 40) {
-            state = idle;
+            digitalWrite(FAN_PIN, PIN_OFF);
+            printf("FAN OFF");
         }
-        switch (state)
-        {
-        case idle:
-            break;
-        case working:
-            break;
-        default:
-            break;
-        }
+        //Amount of seconds to sleep before reading temps again
+        sleep(2);
     }
 }
 
