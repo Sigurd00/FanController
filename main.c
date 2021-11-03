@@ -21,9 +21,9 @@ void run_fan_Controller();
 
 int main(int argc, char *argv[]) {
     if(USING_PI){
-        pinMode(FAN_PIN, OUTPUT);
         if (wiringPiSetup () == -1)
             return EXIT_FAILURE;
+        pinMode(FAN_PIN, OUTPUT);
         run_fan_Controller();
     } else {
     printf("FAKE TEMPERATURE = %lf", get_fake_temp());
