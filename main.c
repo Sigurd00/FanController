@@ -35,11 +35,11 @@ void run_fan_Controller(){
     printf("%lf", &temperature);
     digitalWrite(FAN_PIN, PIN_OFF);
     while (_running) {
-        if (temperature >= 60) {
+        if (temperature >= 40) {
             digitalWrite(FAN_PIN, PIN_ON);
             printf("FAN ON");
         }
-        else if (temperature <= 40) {
+        else if (temperature <= 35) {
             digitalWrite(FAN_PIN, PIN_OFF);
             printf("FAN OFF");
         }
