@@ -22,6 +22,8 @@ void run_fan_Controller();
 int main(int argc, char *argv[]) {
     if(USING_PI){
         pinMode(FAN_PIN, OUTPUT);
+        if (wiringPiSetup () == -1)
+            return EXIT_FAILURE;
         run_fan_Controller();
     } else {
     printf("FAKE TEMPERATURE = %lf", get_fake_temp());
@@ -32,6 +34,7 @@ int main(int argc, char *argv[]) {
 void run_fan_Controller(){
     int _running = 1;
     double temperature = get_system_temp();
+    
     printf("%lf", &temperature);
     digitalWrite(FAN_PIN, PIN_OFF);
     while (_running) {
