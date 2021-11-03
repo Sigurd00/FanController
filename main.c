@@ -8,7 +8,6 @@
 #define FAN_PIN 7 //https://pinout.xyz/pinout/pin7_gpio4#
 #define PIN_ON 1
 #define PIN_OFF 0
-void run_fan_controller();
 #else
 #include <windows.h>
 #endif
