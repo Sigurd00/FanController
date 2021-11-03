@@ -33,6 +33,7 @@ void run_fan_Controller(){
     int _running = 1;
     double temperature = get_system_temp();
     printf("%lf", &temperature);
+    digitalWrite(FAN_PIN, PIN_OFF);
     while (_running) {
         if (temperature >= 60) {
             digitalWrite(FAN_PIN, PIN_ON);
